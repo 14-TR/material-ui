@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from './components/Header';
 import ThemeProviderWrapper from './theme/ThemeProviderWrapper';
+import CustomDatePicker from './components/CustomDatePicker';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <div style={{ padding: 20 }}>
             <h1>Welcome to the App!</h1>
             <p>Toggle the theme using the button in the header.</p>
+            <CustomDatePicker />
           </div>
         </>
       )}
