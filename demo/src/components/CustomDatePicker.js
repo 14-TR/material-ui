@@ -1,4 +1,3 @@
-// src/components/CustomDatePicker.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
@@ -28,7 +27,7 @@ function ButtonField(props) {
       size="small"
       onClick={() => setOpen?.((prev) => !prev)}
       startIcon={<CalendarTodayRoundedIcon fontSize="small" />}
-      sx={{ minWidth: 'fit-content' }}
+      sx={{ minWidth: 'fit-content', margin: '5px' }}
     >
       {label ? `${label}` : 'Pick a date'}
     </Button>
@@ -49,27 +48,49 @@ ButtonField.propTypes = {
   setOpen: PropTypes.func,
 };
 
-export default function CustomDatePicker() {
-  const [value, setValue] = React.useState(dayjs('2023-04-17'));
-  const [open, setOpen] = React.useState(false);
+export default function TwoDatePicker() {
+  const [startDate, setStartDate] = React.useState(dayjs().startOf('day'));
+  const [endDate, setEndDate] = React.useState(dayjs().endOf('day'));
+  const [openStart, setOpenStart] = React.useState(false);
+  const [openEnd, setOpenEnd] = React.useState(false);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DatePicker
-        value={value}
-        label={value == null ? null : value.format('MMM DD, YYYY')}
-        onChange={(newValue) => setValue(newValue)}
-        slots={{ field: ButtonField }}
-        slotProps={{
-          field: { setOpen },
-          nextIconButton: { size: 'small' },
-          previousIconButton: { size: 'small' },
-        }}
-        open={open}
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        views={['day', 'month', 'year']}
-      />
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        {/* From Date Picker */}
+        <DatePicker
+          value={startDate}
+          label={startDate == null ? null : startDate.format('MMM DD, YYYY')}
+          onChange={(newValue) => setStartDate(newValue)}
+          slots={{ field: ButtonField }}
+          slotProps={{
+            field: { setOpen: setOpenStart },
+            nextIconButton: { size: 'small' },
+            previousIconButton: { size: 'small' },
+          }}
+          open={openStart}
+          onClose={() => setOpenStart(false)}
+          onOpen={() => setOpenStart(true)}
+          views={['day', 'month', 'year']}
+        />
+
+        {/* To Date Picker */}
+        <DatePicker
+          value={endDate}
+          label={endDate == null ? null : endDate.format('MMM DD, YYYY')}
+          onChange={(newValue) => setEndDate(newValue)}
+          slots={{ field: ButtonField }}
+          slotProps={{
+            field: { setOpen: setOpenEnd },
+            nextIconButton: { size: 'small' },
+            previousIconButton: { size: 'small' },
+          }}
+          open={openEnd}
+          onClose={() => setOpenEnd(false)}
+          onOpen={() => setOpenEnd(true)}
+          views={['day', 'month', 'year']}
+        />
+      </div>
     </LocalizationProvider>
   );
 }
