@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './components/Header';
 import ThemeProviderWrapper from './theme/ThemeProviderWrapper';
 import CustomDatePicker from './components/CustomDatePicker';
+import PlaygroundSpeedDial  from './components/SpeedDial';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
             <h1>Welcome to the App!</h1>
             <p>Toggle the theme using the button in the header.</p>
             <CustomDatePicker />
+            <PlaygroundSpeedDial />
+
           </div>
         </>
       )}
